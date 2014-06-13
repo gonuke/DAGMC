@@ -1,0 +1,7 @@
+#!/bin/bash
+
+patch -o ${INSTALL_BIN_DIR}/rfludag ${FLUPRO}/flutil/rfluka ${INSTALL_BIN_DIR}/rfluka.patch
+
+${CXX} ${CXXFLAGS} -o ${INSTALL_BIN_DIR}/fludag ${INSTALL_BIN_DIR}/mainFluDAG.cpp ${LD_FLAGS}
+
+

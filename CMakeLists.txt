@@ -101,12 +101,14 @@ IF ( DI_SRC_FILES )
 
   SET_TARGET_PROPERTIES( dagmciface        PROPERTIES   
                          PUBLIC_HEADER     "${DI_PUB_HEADERS}" 
+                         RESOURCE          "${DI_RESOURCE}"
                          )
                           
   INSTALL( TARGETS       dagmciface 
            LIBRARY        DESTINATION   "${INSTALL_LIB_DIR}"
            ARCHIVE        DESTINATION   "${INSTALL_LIB_DIR}"
            PUBLIC_HEADER  DESTINATION   "${INSTALL_INCLUDE_DIR}"
+           RESOURCE       DESTINATION   "${INSTALL_LIB_DIR}"
          )
 
 

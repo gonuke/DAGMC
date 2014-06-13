@@ -5,6 +5,8 @@ SET ( CODE_SRCDIR      "fluka" )
 SET ( CODE_SRC_FILES   "${CODE_SRCDIR}/fluka_funcs.cpp"  )
 SET ( CODE_PUB_HEADERS "${CODE_SRCDIR}/fluka_funcs.h" )
 SET ( CODE_CONFIG       )
+SET ( CODE_RESOURCE    "${CODE_SRCDIR}/mainFluDAG.cpp"
+                       "${CODE_SRCDIR}/rfluka.patch" )
 
 SET ( DI_PUB_HEADERS ${DI_PUB_HEADERS}
                      ${CODE_PUB_HEADERS}
@@ -15,9 +17,15 @@ SET ( DI_SRC_FILES ${DI_SRC_FILES}
                    ${CODE_SRC_FILES} 
       PARENT_SCOPE)
 
+SET ( DI_RESOURCE  ${DI_RESOURCE}
+                   ${CODE_RESOURCE}
+      PARENT_SCOPE)
+
 INCLUDE_DIRECTORIES( ${CMAKE_SOURCE_DIR}/${CODE_SRCDIR} )
 
 ADD_SUBDIRECTORY(tests)
+
+CONFIGURE_FILE( build.fludag ${INSTALL_BIN_DIR}/build.fludag )
 
 #######################
 #
