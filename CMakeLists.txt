@@ -16,6 +16,7 @@ SET ( DAGMC_VERSION_MINOR 0 )
 ##########################
 
 FIND_PACKAGE ( MOAB REQUIRED ) 
+#FIND_PACKAGE ( PYNE REQUIRED )
 MESSAGE ( STATUS "Found MOAB Version: " ${MOAB_VERSION} )
 INCLUDE_DIRECTORIES( ${MOAB_INCLUDE_DIRS} )
 
@@ -27,8 +28,21 @@ INCLUDE_DIRECTORIES( ${MOAB_INCLUDE_DIRS} )
 ###################################
 
 SET ( GTEST_INC_DIR "" )
+SET ( GTEST_LIBS    "" )
 ADD_SUBDIRECTORY(gtest EXCLUDE_FROM_ALL)
 INCLUDE_DIRECTORIES(${GTEST_INC_DIR})
+
+####################################
+#
+# LINK LIBS FOR DAGMCIFACE LIBRARY
+#
+###################################
+SET( DI_LIBS 
+             ${MOAB_DIR}/libdagmc.so 
+             ${MOAB_DIR}/libMOAB.so
+             dagmciface
+    )
+
 
 ###################################
 #
@@ -94,6 +108,8 @@ IF ( DI_SRC_FILES )
            ARCHIVE        DESTINATION   "${INSTALL_LIB_DIR}"
            PUBLIC_HEADER  DESTINATION   "${INSTALL_INCLUDE_DIR}"
          )
+
+
 ELSE ( DI_SRC_FILES )
   MESSAGE ( STATUS "Not building dagmciface physics interface library")
 ENDIF ( DI_SRC_FILES )

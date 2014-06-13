@@ -2,25 +2,16 @@
 # CMAKE_MINIMUM_REQUIRED(VERSION 2.6.4)
 MESSAGE (STATUS "Building mainFluDAG")
 
-IF (NOT DEFINED HOME) 
-	set (HOME "$ENV{HOME}")
-ENDIF (NOT DEFINED HOME) 
-
+# Make sure FLUPRO is defined
 IF (NOT DEFINED FLUPRO)
 	set (FLUPRO "$ENV{FLUPRO}")
 ENDIF (NOT DEFINED FLUPRO)
 
-SET(moablibs 
-	${MOAB_DIR}/libdagmc.so 
-	${MOAB_DIR}/libMOAB.so 
-)
-
 ENABLE_LANGUAGE(Fortran)
 
 SET (LIBS 
-     ${moablibs} 
+     ${DI_LIBS}
      ${FLUPRO}/libflukahp.a 
-     dagmciface
      gfortran
 )
 #SET (fluka_file ${FLUPRO}/usermvax/mgdraw.f)
@@ -35,7 +26,9 @@ SET (LIBS
 #	        DEPENDS mgdraw.o)
 
 # Create the executable that can call flukam_
-ADD_EXECUTABLE(mainfludag mainFluDAG.cpp)
+ADD_EXECUTABLE( mainfludag 
+                EXCLUDE_FROM_ALL
+                mainFluDAG.cpp    )
 TARGET_LINK_LIBRARIES(mainfludag ${LIBS})
 INSTALL( TARGETS mainfludag RUNTIME DESTINATION bin)
 
