@@ -12,9 +12,10 @@ SET(LIBS
     pthread
 )
 
-SET (fludag_test_source ${CMAKE_CURRENT_SOURCE_DIR}/test_FlukaFuncs.cpp)
+SET (fludag_test_source test_FlukaFuncs.cpp)
 
 add_custom_target(check)
+
 macro(run_test test_target)
   add_custom_target(${test_target}_runtest
       COMMAND ${test_target} #cmake 2.6 required
