@@ -52,18 +52,6 @@ INSTALL( FILES ${CMAKE_CURRENT_BINARY_DIR}/rfludag DESTINATION "${INSTALL_BIN_DI
 ADD_DEPENDENCIES( fludag rfludag )
 
 
-#SET (fluka_file ${FLUPRO}/usermvax/mgdraw.f)
-#SET (fluka_includes ${FLUPRO}/flukapro)
-#SET (fluka_libdir ${FLUPRO})
-#ADD_CUSTOM_COMMAND(OUTPUT mgdraw.o
-#       COMMAND gfortran -c ${fluka_file} -I${fluka_includes} 
-#       DEPENDS ${FLUPRO}/usermvax/mgdraw.f
-#       COMMENT "Custom command to compile mgdraw object with parenthetically named includes"
-#       )
-#ADD_CUSTOM_TARGET (mgdraw
-#	        DEPENDS mgdraw.o)
-
-
 IF (ADD_MGDRAW)
   SET( FLUKA_INCLUDES ${FLUPRO}/flukapro )
   ADD_DEPENDENCIES( fludag custom_mgdraw)
