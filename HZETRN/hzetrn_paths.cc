@@ -159,6 +159,7 @@ int main(int argc, char* argv[]) {
     if (!po.getOpt("num_rays",&num_rays)) {
       num_rays = DEFAULT_NUMRAYS;
     }
+    
     for (int ray_num = 0; ray_num < num_rays; ray_num++) {
       moab::CartVect dir(3);
       get_rand_dir(dir);
@@ -168,12 +169,16 @@ int main(int argc, char* argv[]) {
     std::ifstream dir_file(dir_filename.c_str());
     while (!dir_file.eof()) {
       moab::CartVect dir(3);
-      dir_file >> dir[0] >> dir[1] >> dir[2];
+      double theta, phi;
+      dir_file >> theta >> phi;
+      dir[2] = cos(theta);
+      dir[0] = dir[1] = 1-dir[2]*dir[2];
+      dir[0] *= cos(phi);
+      dir[1] *= sin(phi);
       dir_list.push_back(dir);
-      dir_file.get();
     }
   }
-      
+
   // load geometry
   rval = DAG->load_file(geom_file.c_str());
   if (moab::MB_SUCCESS != rval) {
@@ -199,7 +204,6 @@ int main(int argc, char* argv[]) {
   // for each ray requested in the input
   for (unsigned int ray_num = 0; ray_num < dir_list.size(); ray_num++) {
 
-    std::cout << "Ray " << ray_num << std::endl;
 
     // initialize the new list
     moab::EntityHandle vol = start_vol;
@@ -210,13 +214,17 @@ int main(int argc, char* argv[]) {
     slab_length.clear();
     slab_density.clear();
     slab_mat_name.clear();
+
+    std::cout << "Ray " << ray_num << "\t" << dir_list[ray_num] << " from " << ref_point << " in vol " << start_vol << std::endl;
     
     // while not at the graveyard
     while (vol != graveyard) {
-      // std::cout << current_pt << "\t" << dir << std::endl;
+      //std::cout << current_pt << "\t" << dir << std::endl;
+      //std::cout << dir.array()[0] << "\t" << dir.array()[1] << "\t" << dir.array()[2]<< std::endl;
       rval = DAG->ray_fire(vol,current_pt.array(),dir.array(),surf,dist);
+      //std::cout << surf << "\t" << dist << std::endl;
       if (dist < huge && surf != 0) {
-        // std::cout << dist << "\t" << surf << std::endl;
+        //std::cout << dist << "\t" << surf << std::endl;
         slab_length.push_front(dist);
         double density;
         std::string mat_name;
@@ -234,10 +242,11 @@ int main(int argc, char* argv[]) {
       }
       
     }
-    
+
+    std::cout << slab_length.size() << std::endl;
     for ( unsigned int slab_num=0; slab_num<slab_length.size(); slab_num++) {
-      std::cout << slab_mat_name[slab_num] << "\t" << slab_density[slab_num] << "\t" 
-                << slab_length[slab_num] << std::endl;
+      std::cout << slab_mat_name[slab_num] << std::endl << 2 << std::endl 
+                << 0.0 << "\t" << slab_length[slab_num] << std::endl;
     }
     
   }
