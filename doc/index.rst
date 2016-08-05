@@ -3,13 +3,19 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-What is DAGMC?
-======
 
-The Direct Accelerated Geometry Monte Carlo (DAGMC) library, a 
-component of the Mesh-Oriented datABase [MOAB_], provides
-fundamental functions for the ray-tracing and related geometry
-operations of Monte Carlo radiation transport directly on complex 3-D
+What is DAGMC?
+==============
+
+The Direct Accelerated Geometry Monte Carlo (DAGMC) toolkit enables the direct
+use of CAD-based geometries in Monte Carlo radiation transport problems.  This
+is increasingly valuable as analysts seek to understand the radiation fields
+in complex geometries, and especially when the details of those geometries are
+important.
+
+The DAGMC toolkit is implemented as a component of the Mesh-Oriented datABase
+[MOAB_], providing fundamental functions for the ray-tracing and related
+geometry operations of Monte Carlo radiation transport directly on complex 3-D
 geometries such as those created in modern solid modeling software.
 
 DAGMC is designed in a modular fashion with the expectation that it
@@ -25,21 +31,21 @@ We have prior experience integrating DAGMC with MCNP/X, and planned
 efforts to integrate DAGMC with other Monte Carlo physics packages
 including: MCNP6_, Serpent2_, Phits_, OpenMC_ and Frensie.
 
-While we don't have a complete GUI, we currently rely on the Cubit_
-software from Sandia.  It plays a role in our workflow that can
+While there is no omplete GUI, we currently rely on the Cubit_
+software from Sandia and its commercial counterpart, Trelis_.  
+It plays a role in our workflow that can
 include importing CAD-files from other tools such as SolidWorks,
-CATIA, etc.  A key technology for supporting different solid modeling
-formats is CGM_.  In addition to defining the geometry, we rely on
-Cubit for material assignment and can also support some other aspects
+CATIA, etc.  In addition to defining the geometry, we rely on
+Cubit/Trelis for material assignment and can also support some other aspects
 of input definition that are tied to the geometry (tallies and
 variance reduction parameters, for example).  Some knowledge of the 
 specific Monte Carlo application is necessary for other 
 parameters such as material definition, run control and source definition.
 
-Both CGM_ and MOAB_ are developed by a team of collaborators at
-Argonne National Laboratory (ANL) and the University of Wisconsin-Madison (UW), who are also working on improving some of 
+MOAB_ is developed by a team of collaborators at
+Argonne National Laboratory (ANL) and the University of
+Wisconsin-Madison (UW), who are also working on improving some of 
 the GUI tools available for manipulating workflows.
-
 
 .. toctree::
    :maxdepth: 1
@@ -56,6 +62,7 @@ the GUI tools available for manipulating workflows.
 .. _MCNP5: http://mcnp.lanl.gov
 .. _MCNP6: http://mcnp.lanl.gov/
 .. _Cubit: http://cubit.sandia.gov
+.. _Trelis: http://csimsoft.com/trelis.jsp
 .. _CGM: http://sigma.mcs.anl.gov/cgm-library/
 .. _CNERG: http://cnerg.engr.wisc.edu
 .. _Fluka: http://www.fluka.org/fluka.php
