@@ -17,41 +17,41 @@ wish to do.
 +---------------------------------+----------------+----------------+
 | Feature                         | |UW2| Workflow | Basic Workflow |
 +----------------------+----------+----------------+----------------+
-|  Material assignment | MCNP5    |        S       |       S        |
+|  Material assignment | MCNP5    |      **S**     |     **S**      |
 |                      +----------+----------------+----------------+
-|                      | Fluka    |        S       |       S        |
+|                      | Fluka    |      **S**     |     **S**      |
 |                      +----------+----------------+----------------+
-|                      | Geant4   |        S       |       S        |
+|                      | Geant4   |      **S**     |     **S**      |
 |                      +----------+----------------+----------------+
-|                      | Tripoli4 |        S       |       S        |
+|                      | Tripoli4 |      **S**     |     **S**      |
 +----------------------+----------+----------------+----------------+
-|  Boundary condition  | MCNP5    |        S       |       S        |
+|  Boundary condition  | MCNP5    |      **S**     |     **S**      |
 |       assignment     +----------+----------------+----------------+
-|                      | Fluka    |        S       |       S        |
+|                      | Fluka    |      **S**     |     **S**      |
 |                      +----------+----------------+----------------+
-|                      | Geant4   |        S       |       S        |
+|                      | Geant4   |      **S**     |     **S**      |
 |                      +----------+----------------+----------------+
-|                      | Tripoli4 |        S       |       S        |
+|                      | Tripoli4 |      **S**     |     **S**      |
 +----------------------+----------+----------------+----------------+
-|  Material definition | MCNP5    |        A       |       M        |
+|  Material definition | MCNP5    |      **A**     |     **M**      |
 |                      +----------+----------------+----------------+
-|                      | Fluka    |        A       |       M        |
+|                      | Fluka    |      **A**     |     **M**      |
 |                      +----------+----------------+----------------+
-|                      | Geant4   |        A       |       M        |
+|                      | Geant4   |      **A**     |     **M**      |
 |                      +----------+----------------+----------------+
-|                      | Tripoli4 |        N       |       M        |
+|                      | Tripoli4 |      **N**     |     **M**      |
 +----------------------+----------+----------------+----------------+
-|  Tally assignment    | MCNP5    |        A       |       M        |
+|  Tally assignment    | MCNP5    |      **A**     |     **M**      |
 |                      +----------+----------------+----------------+
-|                      | Fluka    |        A       |       M        |
+|                      | Fluka    |      **A**     |     **M**      |
 |                      +----------+----------------+----------------+
-|                      | Geant4   |        A       |       M        |
+|                      | Geant4   |      **A**     |     **M**      |
 |                      +----------+----------------+----------------+
-|                      | Tripoli4 |        N       |       M        |
+|                      | Tripoli4 |      **N**     |     **M**      |
 +----------------------+----------+----------------+----------------+
 
-
-**N** not supported, **A** automatic production at run time, **M** manually performed
+**S** supported capability, **N** not supported,
+**A** automatic production at run time, **M** manually performed
 
 So, if you are interested in running your geometry in multiple physics 
 packages with minimal effort, the |UW2| workflow is your best option
