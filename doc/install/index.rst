@@ -16,6 +16,7 @@ DAGMC installation. There are three main steps in the DAGMC installation:
 ..  toctree::
     :maxdepth: 1
 
+    sys_reqs
     dependencies
     dagmc
     plugin

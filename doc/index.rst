@@ -6,6 +6,14 @@
 DAGMC: Direct Accelerated Geometry Monte Carlo
 ==============================================
 
+Direct Accelerated Geometry Monte Carlo (DAGMC) is a software package that
+allows users to perform Monte Carlo radiation transport directly on CAD models. 
+
+DAGMC has been integrated into a variety of Monte Carlo radiation codes
+including MCNP5_, Geant4_, Fluka_, Tripoli4_, and Shift_. There are also efforts
+planned to integrate DAGMC into other codes such as MCNP6_, Serpent2_,
+OpenMC_, Phits_, and Frensie.
+
 ..  raw:: html
     :file: slideshow.html
 
@@ -19,19 +27,6 @@ DAGMC: Direct Accelerated Geometry Monte Carlo
 
 |
 
-Direct Accelerated Geometry Monte Carlo (DAGMC) is a software package that
-allows users to perform Monte Carlo radiation transport directly on CAD models. 
-
-DAGMC has been integrated into a variety of Monte Carlo radiation codes
-including MCNP5_, Geant4_, Fluka_, Tripoli4_, and Shift_. There are also efforts
-planned to integrate DAGMC into other codes such as MCNP6_, Serpent2_,
-OpenMC_, Phits_, and Frensie.
-
-DAGMC currently relies on using the solid modeling software Cubit_ or its
-commercial counterpart, Trelis_, to prepare solid models. These packages can be
-used to import CAD models from other tools such as SolidWorks, CATIA, etc., or
-to create geometry from scratch. DAGMC also relies on Trelis/Cubit to assign
-materials and other geometry-related information.
 
 ..  toctree::
     :maxdepth: 2
