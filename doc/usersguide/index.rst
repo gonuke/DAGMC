@@ -9,8 +9,7 @@ code.  This documentation assumes that the user is already familiar
 with Monte Carlo radiation transport in general,and the specific use
 of the Monte Carlo physics code that they wil use with DAGMC.
 
-Overview
----------
+**Overview**
 
 In general, using DAGMC with a physics code includes the following
 steps:
@@ -23,6 +22,7 @@ steps:
 6. Run the physics code modified with DAGMC
 7. Post-process your output, possibly plotting 3-D results with the geometry
 
+**Choosing a Workflow**
    
 UW - Madison has developed several workflows for the Monte Carlo
 codes it supports. Exactly which workflow suits your needs depends on
