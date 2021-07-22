@@ -6,6 +6,8 @@ on:
       - 'CI/*'
       - '.github/workflows/docker_publish.yml'
 
+env:
+  ci_tag: ci_testing
 
 jobs:
   build-base-img:
@@ -40,7 +42,7 @@ jobs:
           context: .
           build-args: |
             UBUNTU_VERSION=${{ matrix.ubuntu_versions }}
-          tags: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}:ci_testing
+          tags: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}:${{ env.ci_tag }}
 
   build-housekeeping-img:
     needs: build-base-img
@@ -74,9 +76,9 @@ jobs:
           push: true
           build-args: |
             OWNER=${{ github.repository_owner }}
-            TAG=ci_testing
+            TAG=${{ env.ci_tag }}
             UBUNTU_VERSION=${{ matrix.ubuntu_versions }}
-          tags: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-housekeeping:ci_testing
+          tags: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-housekeeping:${{ env.ci_tag }}
 
 
   build-deps-img:
@@ -120,10 +122,10 @@ jobs:
           push: false
           build-args: |
             OWNER=${{ github.repository_owner }}
-            TAG=ci_testing
+            TAG=${{ env.ci_tag }}
             UBUNTU_VERSION=${{ matrix.ubuntu_versions }}
             COMPILER=${{ matrix.compiler }}
-          tags: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-${{ matrix.compiler}}-ext:ci_testing
+          tags: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-${{ matrix.compiler}}-ext:${{ env.ci_tag }}
 
       - name: Build and export Dockerfile_2_hdf5
         uses: docker/build-push-action@v2
@@ -133,11 +135,11 @@ jobs:
           push: true
           build-args: |
             OWNER=${{ github.repository_owner }}
-            TAG=ci_testing
+            TAG=${{ env.ci_tag }}
             UBUNTU_VERSION=${{ matrix.ubuntu_versions }}
             COMPILER=${{ matrix.compiler }}
             HDF5=${{ matrix.hdf5_versions }}
-          tags: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-${{ matrix.compiler}}-ext-hdf5_${{ matrix.hdf5_versions}}:ci_testing
+          tags: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-${{ matrix.compiler}}-ext-hdf5_${{ matrix.hdf5_versions}}:${{ env.ci_tag }}
 
   build-moab-img:
     needs: build-deps-img
@@ -188,12 +190,12 @@ jobs:
           push: true
           build-args: |
             OWNER=${{ github.repository_owner }}
-            TAG=ci_testing
+            TAG=${{ env.ci_tag }}
             UBUNTU_VERSION=${{ matrix.ubuntu_versions }}
             COMPILER=${{ matrix.compiler }}
             HDF5=${{ matrix.hdf5_versions }}
             MOAB=${{ matrix.moab_versions }}
-          tags: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-${{ matrix.compiler}}-ext-hdf5_${{ matrix.hdf5_versions}}-moab_${{ matrix.moab_versions }}:ci_testing
+          tags: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-${{ matrix.compiler}}-ext-hdf5_${{ matrix.hdf5_versions}}-moab_${{ matrix.moab_versions }}:${{ env.ci_tag }}
 
   housekeeping:
     if: ${{ github.repository_owner != 'svalinn' || github.event_name == 'pull_request' }}
@@ -205,7 +207,7 @@ jobs:
     strategy:
       matrix:
         ubuntu_versions : [18.04,]
-    container: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-housekeeping:ci_testing
+    container: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-housekeeping:${{ env.ci_tag }}
 
     name: Running Housekeeping scrips
     steps:
@@ -251,7 +253,7 @@ jobs:
          develop,
          master,
         ]
-    container: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-${{ matrix.compiler}}-ext-hdf5_${{ matrix.hdf5_versions}}-moab_${{ matrix.moab_versions }}:ci_testing
+    container: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-${{ matrix.compiler}}-ext-hdf5_${{ matrix.hdf5_versions}}-moab_${{ matrix.moab_versions }}:${{ env.ci_tag }}
 
     name: Installing and Testing DAGMC
     steps:
@@ -306,13 +308,13 @@ jobs:
       - name: Push Image as stable img
         uses: akhilerm/tag-push-action@v1.0.0
         with:
-          src: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-housekeeping:ci_testing
+          src: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-housekeeping:${{ env.ci_tag }}
           dst: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-housekeeping:stable
 
       - name: Push Image as latest img
         uses: akhilerm/tag-push-action@v1.0.0
         with:
-          src: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-housekeeping:ci_testing
+          src: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-housekeeping:${{ env.ci_tag }}
           dst: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-housekeeping:latest
 
   pushing_test_stable_img:
@@ -358,11 +360,11 @@ jobs:
       - name: Push Image as stable img
         uses: akhilerm/tag-push-action@v1.0.0
         with:
-          src: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-${{ matrix.compiler}}-ext-hdf5_${{ matrix.hdf5_versions}}-moab_${{ matrix.moab_versions }}:ci_testing
+          src: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-${{ matrix.compiler}}-ext-hdf5_${{ matrix.hdf5_versions}}-moab_${{ matrix.moab_versions }}:${{ env.ci_tag }}
           dst: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-${{ matrix.compiler}}-ext-hdf5_${{ matrix.hdf5_versions}}-moab_${{ matrix.moab_versions }}:stable
 
       - name: Push Image as latest img
         uses: akhilerm/tag-push-action@v1.0.0
         with:
-          src: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-${{ matrix.compiler}}-ext-hdf5_${{ matrix.hdf5_versions}}-moab_${{ matrix.moab_versions }}:ci_testing
+          src: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-${{ matrix.compiler}}-ext-hdf5_${{ matrix.hdf5_versions}}-moab_${{ matrix.moab_versions }}:${{ env.ci_tag }}
           dst: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-${{ matrix.compiler}}-ext-hdf5_${{ matrix.hdf5_versions}}-moab_${{ matrix.moab_versions }}:latest
