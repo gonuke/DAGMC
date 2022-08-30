@@ -119,7 +119,7 @@ jobs:
           clang,
           ]
 
-    name: Ubuntu ${{ matrix.ubuntu_versions }} + ${{ matrix.compiler }} hdf5 ${{ matrix.hdf5_versions }}
+    name: Ubuntu ${{ matrix.ubuntu_versions }} + ${{ matrix.compiler }}
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
