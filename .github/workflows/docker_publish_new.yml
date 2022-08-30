@@ -10,6 +10,24 @@ on:
 
 
 jobs:
+  ##############################
+  #
+  # build-base-img
+  #
+  # Start with a standard ubuntu image and add necessary standard dependencies
+  # using apt-get and pip
+  #
+  # Build Dockerfile target: base
+  #
+  # inputs:
+  #   None
+  #
+  # outputs:
+  #   pushed image: ghcr.io/{github.repository_owner}/dagmc-ci-ubuntu-{ubuntu_versions}:ci_testing
+  #   cached environment: /tmp/.buildx-cache-${{ github.sha }}
+  #
+  ############################
+
   build-base-img:
     runs-on: ubuntu-latest
     strategy:
@@ -39,11 +57,8 @@ jobs:
       - name: Cache Docker layers
         uses: actions/cache@v2
         with:
-          path: /tmp/.buildx-cache-${{ github.sha }}
-          # Key is named differently to avoid collision
           key: ${{ runner.os }}-multi-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-multi-buildx
+          path: /tmp/.buildx-cache-${{ github.sha }}
 
       - name: "Build, push, and cache target: base"
         uses: docker/build-push-action@v2
@@ -57,7 +72,21 @@ jobs:
           tags: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}:ci_testing
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache-${{ github.sha }}
 
-
+  ##############################
+  #
+  # build-housekeeping-img
+  #
+  # Extend base image by adding Sphinx and clang-format
+  #
+  # Build Dockerfile target: base => housekeeping
+  #
+  # inputs:
+  #   cached environment: /tmp/.buildx-cache-${{ github.sha }}
+  #
+  # outputs:
+  #   pushed image: ghcr.io/{github.repository_owner}/dagmc-ci-ubuntu-{ubuntu_versions}-housekeeping:ci_testing
+  #
+  ############################
   build-housekeeping-img:
     needs: build-base-img
     runs-on: ubuntu-latest
@@ -84,15 +113,6 @@ jobs:
         with:
           install: true
 
-      - name: Cache Docker layers
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache-${{ github.sha }}
-          # Key is named differently to avoid collision
-          key: ${{ runner.os }}-multi-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-multi-buildx
-
       - name: "Build, push, and cache target: housekeeping"
         uses: docker/build-push-action@v2
         with:
@@ -105,7 +125,23 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache-${{ github.sha }}
           tags: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-housekeeping:ci_testing
 
-
+##############################
+  #
+  # build-deps-img
+  #
+  # Extend base image by installing:
+  #   * GEANT4
+  #   * Embree
+  #
+  # Build Dockerfile target: base => external_deps
+  #
+  # inputs:
+  #   cached environment: /tmp/.buildx-cache-${{ github.sha }}
+  #
+  # outputs:
+  #   pushed image: ghcr.io/{github.repository_owner}/dagmc-ci-ubuntu-{ubuntu_versions}-{compiler}-ext:ci_testing
+  #
+  ############################
   build-deps-img:
     needs: build-base-img
     runs-on: ubuntu-latest
@@ -143,11 +179,9 @@ jobs:
       - name: Cache Docker layers
         uses: actions/cache@v2
         with:
-          path: /tmp/.buildx-cache-${{ github.sha }}
-          # Key is named differently to avoid collision
-          key: ${{ runner.os }}-multi-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-multi-buildx
+          key: ${{ runner.os }}-multi-buildx-${{ matrix.compiler }}-${{ github.sha }}
+          path: /tmp/.buildx-cache-${{ matrix.compiler }}-${{ github.sha }}
+
 
       - name: "Build, push, and cache target: external_deps"
         uses: docker/build-push-action@v2
@@ -158,9 +192,8 @@ jobs:
           context: .
           push: false
           build-args: |
-            OWNER=${{ github.repository_owner }}
-            TAG=ci_testing
             UBUNTU_VERSION=${{ matrix.ubuntu_versions }}
             COMPILER=${{ matrix.compiler }}
           cache-from: type=local,src=/tmp/.buildx-cache-${{ github.sha }}
           tags: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-${{ matrix.compiler}}-ext:ci_testing
+          cache-to: type=local,mode=max,dest=/tmp/.buildx-cache-${{ matrix.compiler }}-${{ github.sha }}
