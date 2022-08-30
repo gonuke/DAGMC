@@ -106,7 +106,7 @@ jobs:
           tags: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-housekeeping:ci_testing
 
 
-    build-deps-img:
+  build-deps-img:
     needs: build-base-img
     runs-on: ubuntu-latest
     strategy:
