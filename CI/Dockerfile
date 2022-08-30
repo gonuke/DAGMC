@@ -1,6 +1,6 @@
 # Svalinn DAGMC Dockerfile
 
-ARG UBUNTU_VERSION=18.04
+ARG UBUNTU_VERSION=20.04
 
 ARG ci_jobs=8
 ARG MOAB_BRANCH=5.4.0
@@ -61,6 +61,11 @@ ARG install_dir
 
 ENV build_dir=${build_dir}
 ENV install_dir=${install_dir}
+
+FROM base as housekeeping
+
+RUN pip install sphinx; \
+    apt-get -y install clang-format
 
 FROM base as external_deps
 
