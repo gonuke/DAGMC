@@ -30,6 +30,21 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@master
+        with:
+          install: true
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache-${{ github.sha }}
+          # Key is named differently to avoid collision
+          key: ${{ runner.os }}-multi-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-multi-buildx
+
       - name: Build and Export Dockerfile_0_base
         uses: docker/build-push-action@v2
         with:
@@ -40,6 +55,8 @@ jobs:
           build-args: |
             UBUNTU_VERSION=${{ matrix.ubuntu_versions }}
           tags: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}:ci_testing
+          cache-to: type=local,mode=max,dest=/tmp/.buildx-cache-${{ github.sha }}
+
 
   build-housekeeping-img:
     needs: build-base-img
@@ -61,7 +78,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Build and push Dockerfile_1_housekeeping
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@master
+        with:
+          install: true
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache-${{ github.sha }}
+          # Key is named differently to avoid collision
+          key: ${{ runner.os }}-multi-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-multi-buildx
+
+      - name: "Build and push target: housekeeping"
         uses: docker/build-push-action@v2
         with:
           file: CI/Dockerfile
@@ -70,6 +102,7 @@ jobs:
           push: true
           build-args: |
             UBUNTU_VERSION=${{ matrix.ubuntu_versions }}
+          cache-from: type=local,src=/tmp/.buildx-cache-${{ github.sha }}
           tags: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-housekeeping:ci_testing
 
 
