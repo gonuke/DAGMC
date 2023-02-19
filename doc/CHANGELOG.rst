@@ -16,6 +16,8 @@ Next version
    * Update Pyne submodule (#845)
    * Update Pyne submodule (#848)
    * Minor typo fixes in documentation (#851)
+   * Updated DAGMC code to be compatible with Geant4 v11.1.1 (#860)
+ 
 
 
 v3.2.2
