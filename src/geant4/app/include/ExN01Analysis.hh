@@ -7,6 +7,7 @@
 #ifndef ExN01Analysis_h
 #define ExN01Analysis_h 1
 
-#include "g4root.hh"
+/// #include "g4root.hh"
+#include "G4AnalysisManager.hh"
 
 #endif

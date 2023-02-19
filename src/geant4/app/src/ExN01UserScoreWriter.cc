@@ -27,6 +27,7 @@ void ExN01UserScoreWriter::DumpAllQuantitiesToFile(const G4String& fileName,
          << G4endl;
 
   // retrieve the map
+  using MeshScoreMap = G4VScoringMesh::MeshScoreMap;
   MeshScoreMap scMap = fScoringMesh->GetScoreMap();
 
   // get the number of bins
