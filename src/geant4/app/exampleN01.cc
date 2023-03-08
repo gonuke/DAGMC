@@ -13,9 +13,9 @@
 #include "G4RunManager.hh"
 #include "G4ScoringManager.hh"
 #include "G4Timer.hh"
+#include "G4UIExecutive.hh"
 #include "G4UImanager.hh"
 #include "G4VisExecutive.hh"
-#include "G4UIExecutive.hh"
 
 #ifndef uwuw_hpp
 #define uwuw_hpp 1
