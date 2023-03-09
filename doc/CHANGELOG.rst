@@ -20,6 +20,9 @@ Next version
    * Updated DAGMC code to be compatible with Geant4 v11.1.1 (#860)
 
 
+**Fixed:**
+   * Patch to compile with Geant4 10.6     
+
 
 v3.2.2
 ====================
@@ -44,7 +47,7 @@ v3.2.1
 **Removed:**
 
 **Fixed:**
-
+      
 **Security:**
 
 **Maintenance:**
