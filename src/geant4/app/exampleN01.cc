@@ -13,7 +13,6 @@
 #include "G4RunManager.hh"
 #include "G4ScoringManager.hh"
 #include "G4Timer.hh"
-#include "G4UIExecutive.hh"
 #include "G4UImanager.hh"
 
 #ifdef GEANT4_GT_10_6

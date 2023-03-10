@@ -52,7 +52,14 @@ G4VPhysicalVolume* ExN01DetectorConstruction::Construct() {
   std::map<std::string, G4Material*> material_lib;
   material_lib = load_uwuw_materials(workflow_data);
 
-  G4VisAttributes* invis = new G4VisAttributes(G4VisAttributes::GetInvisible());
+  if (GEANT4_GT_11) {
+    G4VisAttributes* invis =
+        new G4VisAttributes(G4VisAttributes::GetInvisible());
+  }
+
+  else {
+    G4VisAttributes* invis = new G4VisAttributes(G4VisAttributes::Invisible);
+  }
 
   //------------------------------------------------------ volumes
   // -- World Volume in which we place other volumes
