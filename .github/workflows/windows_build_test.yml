@@ -39,7 +39,7 @@ jobs:
         shell: bash -l {0}
         run: |
           cd ${HOME_PATH}
-          git clone --depth 1 https://bitbucket.org/fathomteam/moab -b 5.4.0
+          git clone --depth 1 https://bitbucket.org/fathomteam/moab -b 5.4.1
           mkdir moab_build
           cd moab_build
           cmake ../moab \

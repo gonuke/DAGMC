@@ -86,7 +86,7 @@ ENV PYTHONPATH=/root/build_dir/moab/bld/pymoab/lib/python3.6/site-packages
 ENV moab_build_dir=${build_dir}/moab
 ENV moab_install_dir=${install_dir}/moab
 
-ARG MOAB=5.3.0
+ARG MOAB=5.4.1
 ENV MOAB_VERSION ${MOAB}
 #TODO move sh file contents into this Dockerfile
 RUN if [ "${MOAB_VERSION}" != "master" ] && [ "${MOAB_VERSION}" != "develop" ]; then \

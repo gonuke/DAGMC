@@ -41,7 +41,7 @@ jobs:
          1.10.4,
         ]
         moab_versions : [
-          5.4.0,
+          5.4.1,
           develop,
           master,
         ]
