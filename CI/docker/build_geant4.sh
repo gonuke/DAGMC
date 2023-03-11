@@ -6,7 +6,7 @@ set -ex
 export geant4_version=11.1.1
 export geant4_basename=geant4-v${geant4_version}
 export geant4_tarball=${geant4_basename}.tar.gz
-export geant4_shasum=2397eb859dc4de095ff66059d8bda9f060fdc42e10469dd7890946293eeb0e39
+export geant4_shasum=11ab0665adb4f4f955b0c662a8212a64c972523f47bd9afa45e6c9d1351371b4
 
 source ${docker_env}
 
