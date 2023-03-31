@@ -2,6 +2,7 @@
 
 # build from repository root directory with command
 # docker build -t dagmc -f CI/Dockerfile .
+# foo
 
 # Global ARGS set before the first build stage are accessable by all build stages
 ARG build_mw_reg_tests=OFF
