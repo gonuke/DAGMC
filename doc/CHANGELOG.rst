@@ -9,6 +9,7 @@ Next version
 
 **Changed:**
 
+   * Improvements/corrections to graveyard capabilities (#855)
    * Using multi stage Dockerfile to reduce the number of Dockerfile (#813)
    * Adding safe folder to allow CI to compile DAGMC (#814)
    * Correction to CMake variable name in OpenMC install instructions (#817)
@@ -17,12 +18,14 @@ Next version
    * Update Pyne submodule (#848)
    * Minor typo fixes in documentation (#851)
    * Removed unused Circle CI yml (#859)
-   * Added configuration options to CMake configuration file (#86)
-   * Updated DAGMC code to be compatible with Geant4 v11.1.1 (#860)
-
+   * Added configuration options to CMake configuration file (#867)
+   * Change test-on-merge against MOAB master/develop to be optional (#870)
+   * Introduced logger to better manage console output (#876)
 
 **Fixed:**
-   * Patch to compile with Geant4 10.6     
+   * Patch to compile with Geant4 10.6
+   * Updated DAGMC code to be compatible with Geant4 v11.1.1 (#860)
+   * Patched cmake-search paths for double-down and MOAB (#878)
 
 
 v3.2.2
