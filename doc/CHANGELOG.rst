@@ -24,10 +24,11 @@ Next version
    * Introduced logger to better manage console output (#876)
 
 **Fixed:**
-   * Patch to compile with Geant4 10.6
-   * Updated DAGMC code to be compatible with Geant4 v11.1.1 (#860)
-   * Patched cmake-search paths for double-down and MOAB (#878)
 
+   * Patch to compile with Geant4 v11.1.1 (#803 #860)
+   * Patched cmake-search paths for double-down and MOAB (#878)
+   * Patch to compile with gcc-13 (#882)
+   * Tweak conda environment for Windows build to avoid conflicting gtest headers (#888)
 
 v3.2.2
 ====================
