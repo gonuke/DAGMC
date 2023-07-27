@@ -32,7 +32,7 @@ void ExN01UserScoreWriter::DumpAllQuantitiesToFile(const G4String& fileName,
 
 // retrieve the map
 #ifdef GEANT4_GT_10_6
-using MeshScoreMap = G4VScoringMesh::MeshScoreMap;
+  using MeshScoreMap = G4VScoringMesh::MeshScoreMap;
 #endif
 
   MeshScoreMap scMap = fScoringMesh->GetScoreMap();
