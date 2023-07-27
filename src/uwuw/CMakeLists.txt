@@ -1,7 +1,7 @@
 message("")
 
-# C++11 support
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++11")
+# C++17 support
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
 
 file(GLOB SRC_FILES "*.cpp")
 file(GLOB PUB_HEADERS "*.hpp")
