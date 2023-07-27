@@ -1,3 +1,12 @@
+# Set the C++ standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Add the additional compiler flag for Visual Studio
+if (MSVC)
+    target_compile_options(uwuw PRIVATE /std:c++17)
+endif()
+
 message("")
 
 file(GLOB SRC_FILES "*.cpp")
