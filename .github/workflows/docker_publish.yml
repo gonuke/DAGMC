@@ -52,7 +52,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Installing Dependencies in Docker image
+      - name: Installing Dependencies, Building DAGMC and running tests
         uses: firehed/multistage-docker-build-action@v1
         with:
           repository: ghcr.io/${{ github.repository_owner }}/dagmc-ci-ubuntu-${{ matrix.ubuntu_versions }}-${{ matrix.compiler}}-ext-hdf5_${{ matrix.hdf5_versions}}-moab_${{ matrix.moab_versions }}
@@ -80,7 +80,7 @@ jobs:
           ]
         hdf5_versions : [
          1.10.4,
-         1.14.1,
+         1.12.2,
         ]
         moab_versions : [
          5.3.0,
