@@ -3,12 +3,12 @@
 from optparse import OptionParser
 import os,errno
 import sys
-import meshio
 # for material handling
 from pyne.material import Material
 from pyne.material_library import MaterialLibrary
 from pyne.nucname import name, znum, anum, id, alara
 from pyne.data import atomic_mass
+from pyne import dagmc
 
 # for coloring the volumes
 import colorsys
@@ -92,30 +92,15 @@ dag_filename : h5m filename
 
 Returns
 ---------
-dag_volnames : dictionary of volume names
-
+dag_vol_names : list of volume names
+dag_materials : dictionary of material assignments
 """
 
 def _get_dag_info(dag_filename):
-    dag_vol_names = [] # list of dag volume names (Cubit id)
-    dag_materials = {} # list of material assignments from group
 
-    # load the file using meshio
-    mesh = meshio.read(dag_filename)
+    dag_materials = dagmc.cell_material_assignments(dag_filename)
 
-    # extract volume information
-    for cell_block in mesh.cells:
-        if cell_block.type == 'tetra':
-            for cell in cell_block.data:
-                dag_vol_names.append(str(cell[0]))
-
-    # extract material information
-    for cell_set in mesh.cell_sets:
-        if cell_set.type == 'tetra':
-            for cell in cell_set.data:
-                mat_name = cell_set.name
-                volume_name = str(cell[0])
-                dag_materials[volume_name] = mat_name
+    dag_vol_names = [dag_materials.keys()]
 
     return dag_vol_names, dag_materials
 
